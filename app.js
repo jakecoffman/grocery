@@ -1,6 +1,6 @@
-var app = angular.module('app', []);
+var app = angular.module('app', ['ui.bootstrap'], function(){});
 
-app.controller('MainCtl', function ($scope) {
+app.controller('MainCtl', function ($scope, $modal) {
 	$scope.myData = [
 		{location: "Produce", data: [
 			{name: "Apples", quantity: "3"},
@@ -16,7 +16,28 @@ app.controller('MainCtl', function ($scope) {
 			{name: "White Cooking Wine", quantity: "1"}
 		]}
 	];
+
+	$scope.open = function() {
+		var modalInstance = $modal.open({
+			templateUrl: 'modal.html',
+			controller: ModalInstanceCtrl
+		});
+
+		modalInstance.result.then(function() {
+			$scope.myData = [];
+		});
+	}
 });
+
+var ModalInstanceCtrl = function ($scope, $modalInstance) {
+	$scope.ok = function () {
+		$modalInstance.close();
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss();
+	};
+};
 
 app.directive('contenteditable', function () {
 	return {
@@ -37,8 +58,8 @@ app.directive('contenteditable', function () {
 				scope.$apply(read);
 			});
 
-			element.on('keydown', function(event){
-				if(event.keyCode == 13){
+			element.on('keydown', function (event) {
+				if (event.keyCode == 13) {
 					// Maybe go to the next field?
 					event.preventDefault();
 				}
