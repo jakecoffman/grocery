@@ -3,17 +3,25 @@ var app = angular.module('app', ['ui.bootstrap'], function(){});
 app.controller('MainCtl', function ($scope, $modal) {
 	$scope.myData = [
 		{location: "Produce", data: [
-			{name: "Apples", quantity: "3"},
-			{name: "Tofu", quantity: "1"}
+			{name: "Kale", quantity: "1 bunch"},
+			{name: "Tofu, extra firm", quantity: "1"}
 		]},
-		{location: "Spice", data: [
-			{name: "Curry Powder", quantity: "1 tsp"}
+		{location: "Bakery", data: [
+			{name: "Bagels", quantity: "1 pkg"},
+			{name: "Oat Nut", quantity: "loaf"}
+		]},
+		{location: "Dairy", data: [
+			{name: "2% Milk", quantity: "half gallon"},
+			{name: "Blueberry Cream Cheese", quantity: "1"},
+			{name: "Almond Milk, Vanilla, Sweetened", quantity: "2"},
+			{name: "Mexican Blend Shredded Cheese", quantity: "2"}
 		]},
 		{location: "Frozen", data: [
 			{name: "Blueberry Waffles", quantity: "3"}
 		]},
-		{location: "Mexican", data: [
-			{name: "White Cooking Wine", quantity: "1"}
+		{location: "Baking", data: [
+			{name: "White Cooking Wine", quantity: "1"},
+			{name: "Curry Powder", quantity: "lots"}
 		]}
 	];
 
