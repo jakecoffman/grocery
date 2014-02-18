@@ -22,7 +22,7 @@
 				<button class="btn btn-primary" ng-hide="print"
 						ng-click="myData.push({location:'New',edit:true,data:[{}]})"><i class="fa fa-plus"></i></button>
 				<button class="btn btn-primary" ng-click="print=!print"><i class="fa fa-print"></i></button>
-				<button class="btn btn-danger" ng-click="myData=[]"><i class="fa fa-file-o"></i></button>
+				<button class="btn btn-danger" ng-hide="print" ng-click="myData=[]"><i class="fa fa-file-o"></i></button>
 			</div>
 			<div ng-repeat="d in myData track by $index">
 				<button class="btn btn-primary pull-left"
