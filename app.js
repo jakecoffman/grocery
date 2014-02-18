@@ -3,20 +3,19 @@ var app = angular.module('app', []);
 app.controller('MainCtl', function ($scope) {
 	$scope.myData = [
 		{location: "Produce", data: [
-			{name: "Apples", quantity: 3, unit: "pieces"},
-			{name: "Tofu", quantity: 1, unit: "package"}
+			{name: "Apples", quantity: "3"},
+			{name: "Tofu", quantity: "1"}
 		]},
 		{location: "Spice", data: [
-			{name: "Curry Powder", quantity: 1, unit: "teaspoon"}
+			{name: "Curry Powder", quantity: "1 tsp"}
 		]},
 		{location: "Frozen", data: [
-			{name: "Blueberry Waffles", quantity: 3, unit: "package"}
+			{name: "Blueberry Waffles", quantity: "3"}
 		]},
 		{location: "Mexican", data: [
-			{name: "White Cooking Wine", quantity: 1, unit: "bottle"}
+			{name: "White Cooking Wine", quantity: "1"}
 		]}
 	];
-
 });
 
 app.directive('contenteditable', function () {
@@ -36,6 +35,13 @@ app.directive('contenteditable', function () {
 			// Listen for change events to enable binding
 			element.on('blur keyup change', function () {
 				scope.$apply(read);
+			});
+
+			element.on('keydown', function(event){
+				if(event.keyCode == 13){
+					// Maybe go to the next field?
+					event.preventDefault();
+				}
 			});
 
 			// Write data to the model
