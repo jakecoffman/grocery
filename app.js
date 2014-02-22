@@ -1,4 +1,8 @@
-var app = angular.module('app', ['ui.bootstrap'], function(){});
+var app = angular.module('app', ['ui.bootstrap', 'xeditable'], function(){});
+
+app.run(function(editableOptions) {
+	editableOptions.theme = "bs3";
+});
 
 app.controller('MainCtl', function ($scope, $modal) {
 	$scope.myData = [
