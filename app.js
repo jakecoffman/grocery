@@ -1,7 +1,21 @@
-var app = angular.module('app', ['ui.bootstrap', 'xeditable'], function(){});
+var app = angular.module('app', ['ui.bootstrap', 'xeditable', 'ngRoute'], function () {
+});
 
-app.run(function(editableOptions) {
+app.run(function (editableOptions) {
 	editableOptions.theme = "bs3";
+});
+
+app.config(function ($routeProvider, $locationProvider) {
+	$routeProvider.when('/edit', {
+		templateUrl: '/edit.html'
+//		controller: 'EditCtl',
+	}).when('/print', {
+		templateUrl: '/print.html'
+//		controller: 'PrintCtl'
+	}).otherwise({redirectTo: "/edit"});
+
+	// configure html5 to get links working on jsfiddle
+//	$locationProvider.html5Mode(true);
 });
 
 app.controller('MainCtl', function ($scope, $modal) {
@@ -29,13 +43,13 @@ app.controller('MainCtl', function ($scope, $modal) {
 		]}
 	];
 
-	$scope.open = function() {
+	$scope.open = function () {
 		var modalInstance = $modal.open({
 			templateUrl: 'modal.html',
 			controller: ModalInstanceCtrl
 		});
 
-		modalInstance.result.then(function() {
+		modalInstance.result.then(function () {
 			$scope.myData = [];
 		});
 	}
