@@ -5,43 +5,30 @@ app.run(function (editableOptions) {
 	editableOptions.theme = "bs3";
 });
 
-app.config(function ($routeProvider, $locationProvider) {
+app.config(function ($routeProvider) {
 	$routeProvider.when('/edit', {
 		templateUrl: 'edit.html'
-//		controller: 'EditCtl',
 	}).when('/print', {
 		templateUrl: 'print.html'
-//		controller: 'PrintCtl'
 	}).otherwise({redirectTo: "/edit"});
-
-	// configure html5 to get links working on jsfiddle
-//	$locationProvider.html5Mode(true);
 });
 
 app.controller('MainCtl', function ($scope, $modal) {
-	$scope.myData = [
-		{location: "Produce", data: [
-			{name: "Kale", quantity: "1 bunch"},
-			{name: "Tofu, extra firm", quantity: "1"}
-		]},
-		{location: "Bakery", data: [
-			{name: "Bagels", quantity: "1 pkg"},
-			{name: "Oat Nut", quantity: "loaf"}
-		]},
-		{location: "Dairy", data: [
-			{name: "2% Milk", quantity: "half gallon"},
-			{name: "Blueberry Cream Cheese", quantity: "1"},
-			{name: "Almond Milk, Vanilla, Sweetened", quantity: "2"},
-			{name: "Mexican Blend Shredded Cheese", quantity: "2"}
-		]},
-		{location: "Frozen", data: [
-			{name: "Blueberry Waffles", quantity: "3"}
-		]},
-		{location: "Baking", data: [
-			{name: "White Cooking Wine", quantity: "1"},
-			{name: "Curry Powder", quantity: "lots"}
-		]}
-	];
+	if (supports_html5_storage()) {
+		if(localStorage["myData"]) {
+			$scope.myData = JSON.parse(localStorage["myData"]);
+		} else {
+			$scope.myData = bootstrapData;
+			localStorage["myData"] = JSON.stringify($scope.myData);
+		}
+
+		$scope.$watch('myData', function() {
+			console.log("HERE");
+			localStorage["myData"] = JSON.stringify($scope.myData);
+		}, true); // deep watch
+	} else {
+		$scope.myData = bootstrapData;
+	}
 
 	$scope.open = function () {
 		var modalInstance = $modal.open({
@@ -104,3 +91,35 @@ app.directive('contenteditable', function () {
 		}
 	};
 });
+
+function supports_html5_storage() {
+	try {
+		return 'localStorage' in window && window['localStorage'] !== null;
+	} catch (e) {
+		return false;
+	}
+}
+
+var bootstrapData = [
+	{location: "Produce", data: [
+		{name: "Kale", quantity: "1 bunch"},
+		{name: "Tofu, extra firm", quantity: "1"}
+	]},
+	{location: "Bakery", data: [
+		{name: "Bagels", quantity: "1 pkg"},
+		{name: "Oat Nut", quantity: "loaf"}
+	]},
+	{location: "Dairy", data: [
+		{name: "2% Milk", quantity: "half gallon"},
+		{name: "Blueberry Cream Cheese", quantity: "1"},
+		{name: "Almond Milk, Vanilla, Sweetened", quantity: "2"},
+		{name: "Mexican Blend Shredded Cheese", quantity: "2"}
+	]},
+	{location: "Frozen", data: [
+		{name: "Blueberry Waffles", quantity: "3"}
+	]},
+	{location: "Baking", data: [
+		{name: "White Cooking Wine", quantity: "1"},
+		{name: "Curry Powder", quantity: "lots"}
+	]}
+];
