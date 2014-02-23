@@ -13,5 +13,5 @@ Technologies and Plugins
   * Xeditable
   * ngRoute
 * HTML5
-  * local storage (coming soon)
-  * contenteditable
+  * local storage
+  * content editable
