@@ -7,10 +7,10 @@ app.run(function (editableOptions) {
 
 app.config(function ($routeProvider, $locationProvider) {
 	$routeProvider.when('/edit', {
-		templateUrl: '/edit.html'
+		templateUrl: 'edit.html'
 //		controller: 'EditCtl',
 	}).when('/print', {
-		templateUrl: '/print.html'
+		templateUrl: 'print.html'
 //		controller: 'PrintCtl'
 	}).otherwise({redirectTo: "/edit"});
 
