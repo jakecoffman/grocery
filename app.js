@@ -1,22 +1,69 @@
-var app = angular.module('app', []);
+var app = angular.module('app', ['ui.bootstrap', 'xeditable', 'ngRoute'], function () {
+});
 
-app.controller('MainCtl', function ($scope) {
+app.run(function (editableOptions) {
+	editableOptions.theme = "bs3";
+});
+
+app.config(function ($routeProvider, $locationProvider) {
+	$routeProvider.when('/edit', {
+		templateUrl: 'edit.html'
+//		controller: 'EditCtl',
+	}).when('/print', {
+		templateUrl: 'print.html'
+//		controller: 'PrintCtl'
+	}).otherwise({redirectTo: "/edit"});
+
+	// configure html5 to get links working on jsfiddle
+//	$locationProvider.html5Mode(true);
+});
+
+app.controller('MainCtl', function ($scope, $modal) {
 	$scope.myData = [
 		{location: "Produce", data: [
-			{name: "Apples", quantity: "3"},
-			{name: "Tofu", quantity: "1"}
+			{name: "Kale", quantity: "1 bunch"},
+			{name: "Tofu, extra firm", quantity: "1"}
 		]},
-		{location: "Spice", data: [
-			{name: "Curry Powder", quantity: "1 tsp"}
+		{location: "Bakery", data: [
+			{name: "Bagels", quantity: "1 pkg"},
+			{name: "Oat Nut", quantity: "loaf"}
+		]},
+		{location: "Dairy", data: [
+			{name: "2% Milk", quantity: "half gallon"},
+			{name: "Blueberry Cream Cheese", quantity: "1"},
+			{name: "Almond Milk, Vanilla, Sweetened", quantity: "2"},
+			{name: "Mexican Blend Shredded Cheese", quantity: "2"}
 		]},
 		{location: "Frozen", data: [
 			{name: "Blueberry Waffles", quantity: "3"}
 		]},
-		{location: "Mexican", data: [
-			{name: "White Cooking Wine", quantity: "1"}
+		{location: "Baking", data: [
+			{name: "White Cooking Wine", quantity: "1"},
+			{name: "Curry Powder", quantity: "lots"}
 		]}
 	];
+
+	$scope.open = function () {
+		var modalInstance = $modal.open({
+			templateUrl: 'modal.html',
+			controller: ModalInstanceCtrl
+		});
+
+		modalInstance.result.then(function () {
+			$scope.myData = [];
+		});
+	}
 });
+
+var ModalInstanceCtrl = function ($scope, $modalInstance) {
+	$scope.ok = function () {
+		$modalInstance.close();
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss();
+	};
+};
 
 app.directive('contenteditable', function () {
 	return {
@@ -37,8 +84,8 @@ app.directive('contenteditable', function () {
 				scope.$apply(read);
 			});
 
-			element.on('keydown', function(event){
-				if(event.keyCode == 13){
+			element.on('keydown', function (event) {
+				if (event.keyCode == 13) {
 					// Maybe go to the next field?
 					event.preventDefault();
 				}
