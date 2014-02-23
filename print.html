@@ -1,0 +1,28 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="row">
+				<div ng-repeat="d in myData track by $index">
+					<div class="col-xs-6">
+						<b>{{d.location}}</b>
+						<table class="table table-bordered table-striped table-hover table-condensed">
+							<colgroup>
+								<col style="width: 70%">
+								<col style="width: 30%">
+							</colgroup>
+							<tbody>
+							<tr ng-repeat="i in d.data track by $index">
+								<td ng-model="i.name" contenteditable></td>
+								<td ng-model="i.quantity" contenteditable></td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<a class="btn btn-primary" href="#/edit">
+			<i class="fa fa-arrow-left"></i>
+		</a>
+	</div>
+</div>
