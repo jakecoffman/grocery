@@ -23,7 +23,6 @@ app.controller('MainCtl', function ($scope, $modal) {
 		}
 
 		$scope.$watch('myData', function() {
-			console.log("HERE");
 			localStorage["myData"] = JSON.stringify($scope.myData);
 		}, true); // deep watch
 	} else {
