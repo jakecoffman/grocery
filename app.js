@@ -5,17 +5,12 @@ app.run(function (editableOptions) {
 	editableOptions.theme = "bs3";
 });
 
-app.config(function ($routeProvider, $locationProvider) {
+app.config(function ($routeProvider) {
 	$routeProvider.when('/edit', {
 		templateUrl: 'edit.html'
-//		controller: 'EditCtl',
 	}).when('/print', {
 		templateUrl: 'print.html'
-//		controller: 'PrintCtl'
 	}).otherwise({redirectTo: "/edit"});
-
-	// configure html5 to get links working on jsfiddle
-//	$locationProvider.html5Mode(true);
 });
 
 app.controller('MainCtl', function ($scope, $modal) {
